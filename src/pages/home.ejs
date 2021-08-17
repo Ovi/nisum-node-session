@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+    Foo-Flex | <%= title %>
+  </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">Foo-Flex</a>
+      <span class="navbar-text" style="cursor: pointer;" id="username" onclick="logout()" title="Logout">
+        @username
+      </span>
+    </div>
+  </nav>
+
+  <div class="container p-5">
+    <div class="row" id="content-holder"></div>
+  </div>
+
+
+  <script src="/static/js/jquery-3.2.1.min.js"></script>
+  <script src="/static/js/popper.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script>
+    async function init() {
+
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        window.location.href = '/login';
+        return;
+      }
+
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      document.querySelector('#username').innerHTML = `@${user.username}`;
+
+      const response = await fetch('/api/content', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      const json = await response.json();
+
+      if (json.message === "Authentication Problem") {
+        window.location.href = '/login';
+        return;
+      }
+
+      const isEven = json.length % 2 === 0;
+
+      json.forEach((content, i) => {
+        $('#content-holder').append(`
+          <div class="col-md-${!isEven && i === json.length - 1 ? '12' : '6'} mt-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${content.title}</h5>
+                <p class="card-text">${content.description}</p>
+                <a href="#" class="btn btn-primary">Play ${content.id}</a>
+              </div>
+            </div>
+          </div>
+        `)
+      })
+    }
+
+    init();
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = '/';
+    }
+  </script>
+</body>
+
+
+</html>

@@ -1,0 +1,53 @@
+{
+  "free": [
+    {
+      "id": 1,
+      "title": "Free Content 01",
+      "description": "Some description to fill the data"
+    },
+    {
+      "id": 2,
+      "title": "Free Content 02",
+      "description": "Some description to fill the data"
+    },
+    {
+      "id": 3,
+      "title": "Free Content 03",
+      "description": "Some description to fill the data"
+    }
+  ],
+  "basic": [
+    {
+      "id": 1,
+      "title": "Basic Content 01",
+      "description": "Some description to fill the data"
+    },
+    {
+      "id": 2,
+      "title": "Basic Content 02",
+      "description": "Some description to fill the data"
+    },
+    {
+      "id": 3,
+      "title": "Basic Content 03",
+      "description": "Some description to fill the data"
+    }
+  ],
+  "premium": [
+    {
+      "id": 1,
+      "title": "Premium Content 01",
+      "description": "Some description to fill the data"
+    },
+    {
+      "id": 2,
+      "title": "Premium Content 02",
+      "description": "Some description to fill the data"
+    },
+    {
+      "id": 3,
+      "title": "Premium Content 03",
+      "description": "Some description to fill the data"
+    }
+  ]
+}
